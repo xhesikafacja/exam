@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Sighting</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+    <nav class="d-flex justify-content-between align-items-center col-12 ">
+        <h1 class="text-center">Sasquatch Websighting</h1>
+        <div class="d-flex col-4 justify-content-around">
+            <h1 class="text-center">Welcome {{user.first_name}}!</h1>
+            <a href="/dashboard" class="btn btn-primary">Dashboard</a>
+            <a href="/logout" class="btn btn-info" >Logout</a>
+        </div>
+    </nav>
+
+    <h1 class="text-center">Edit this Sighting</h1>
+    <form action="/update/recipe" method="post" class="col-11 p-4 bg-dark text-light mx-auto">
+        {% with messages = get_flashed_messages(category_filter=["edityy"]) %}
+            {% if messages %}
+                <div class="alert alert-danger" role="alert">
+                    {% for message in messages %}
+                        <p>{{message}}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+        <div class="d-flex justify-content-between col-9">
+            <input type="hidden" name="id" value="{{edit.id}}">
+            <div class="col-4">
+                <div class="form-group">
+                    <label for="name">Location:</label>
+                    <input type="text" value="{{edit.location}}" name="location" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="description">What Happened:</label>
+                    <input type="text"  value="{{edit.description}}" name="description" class="form-control">
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="form-group">
+                    <label for="date_made">Date of Sighting:</label>
+                    <input type="date"  value="{{edit.date_made}}" name="date_made" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="numberOf"># of Sasquatches:</label>
+                    <input type=" number"  value="{{edit.numberOf}}" required min="0" name="numberOf" class="form-control">
+                </div>
+                <button class="btn btn-primary">Report</button>
+            </div>
+        </div>
+    </form>
+</body>
+</html>

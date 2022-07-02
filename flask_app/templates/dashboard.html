@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+    <nav class="d-flex justify-content-between align-items-center col-12 ">
+        <h1>Sasquatch Websighting</h1>
+        <div class="d-flex col-4 justify-content-around">
+            <h1 class="text-center">Welcome {{user.first_name}}!</h1>
+            <a href="/new/recipe" class="btn btn-primary">Report a Sighting</a> 
+            <a href="/logout" class="btn btn-info" >Logout</a> 
+        </div>
+    </nav>
+   
+    <div class="col-8 mx-auto">
+        <h3>Reported Sightigns</h3>
+        <table class="table table-hover">
+            <tbody>
+                {% for recipe in recipes %}
+                    <tr>
+                        <td>Sceptics: {{recipe.dontTrust}}</td>
+                        <td>{{recipe.location}} - {{recipe.date_made}} Reported by: {{recipe.first_name}}</td>
+                        <td>
+                            <a href="/recipe/{{recipe.id}}">View Instructions</a>
+                            {% if recipe.user_id == session.user_id %}
+                            <a href="/edit/recipe/{{recipe.id}}">Edit</a>
+                            <a href="/destroy/recipe/{{recipe.id}}">Delete</a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Sighting</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+    <nav class="d-flex justify-content-between align-items-center col-12 ">
+        <h1 class="text-center">Sasquatch Websighting</h1>
+        <div class="d-flex col-4 justify-content-around">
+            <h1 class="text-center">Welcome {{user.first_name}}</h1>
+            <a href="/dashboard" class="btn btn-primary">Dashboard</a>
+            <a href="/logout" class="btn btn-info" >Logout</a>
+        </div>
+    </nav>
+    <div class="card col-10 mx-auto bg-dark text-light">
+        <div class="card-body">
+            <h2 class="card-title text-primary">{{recipe.location}} on  {{recipe.date_made}} </h2>
+            <p class="card-text">What Happened: {{recipe.description}}</p>
+            <p class="card-text"># of Sasquatches: {{recipe.numberOf}}</p>
+            <p class="card-text">Reported by: {{recipe.creator}}</p>
+            <p>Sceptics: </p>
+            <ul>
+                {% for user in recipe.users_who_likedFullName %}
+                    <li>{{user}}</li>
+                {% endfor %}
+            </ul>
+
+            {% if user.email not in recipe.users_who_liked %}
+                <td><a href="/recipe/{{recipe.id}}/like">Sceptical</a></td>
+                {% endif %}
+                {% if user.email in recipe.users_who_liked %}
+                <td><a href="/recipe/{{recipe.id}}/unlike">Believe</a></td>
+                {% endif %}
+        </div>
+
+
+    </div>
+
+</body>
+</html>
